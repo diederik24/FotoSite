@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Straver Pflanzen Export",
   description: "Planten en artikelen van Straver Pflanzen Export",
+  other: {
+    'preconnect': 'https://wpgaspsylimithekizvp.supabase.co',
+  },
 };
 
 export default function RootLayout({
@@ -13,10 +16,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nl">
-      <head>
-        <link rel="preconnect" href="https://wpgaspsylimithekizvp.supabase.co" />
-        <link rel="dns-prefetch" href="https://wpgaspsylimithekizvp.supabase.co" />
-      </head>
       <body>
         {children}
       </body>
