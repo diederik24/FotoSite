@@ -13,6 +13,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nl">
+      <head>
+        <link rel="preconnect" href="https://wpgaspsylimithekizvp.supabase.co" />
+        <link rel="dns-prefetch" href="https://wpgaspsylimithekizvp.supabase.co" />
+      </head>
       <body>
         {children}
       </body>

@@ -14,6 +14,26 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [useSupabase, setUseSupabase] = useState(false);
 
+  // Preload alle afbeeldingen voor sneller laden
+  useEffect(() => {
+    const preloadImages = (productList: Product[]) => {
+      productList.forEach((product, index) => {
+        if (product.afbeelding) {
+          const img = new Image();
+          img.src = product.afbeelding;
+          // Stagger loading voor betere performance
+          if (index < 20) {
+            img.loading = 'eager' as any;
+          }
+        }
+      });
+    };
+
+    if (products.length > 0) {
+      preloadImages(products);
+    }
+  }, [products]);
+
   // Probeer producten uit Supabase te laden
   useEffect(() => {
     async function loadProducts() {
@@ -95,8 +115,12 @@ export default function Home() {
           </div>
         ) : (
           <div className="products-grid">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.artikelcode} product={product} />
+            {filteredProducts.map((product, index) => (
+              <ProductCard 
+                key={product.artikelcode} 
+                product={product} 
+                priority={index < 12} // Eerste 12 afbeeldingen krijgen priority
+              />
             ))}
           </div>
         )}

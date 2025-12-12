@@ -4,9 +4,10 @@ import { Product } from '@/lib/types';
 
 interface ProductCardProps {
   product: Product;
+  priority?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, priority = false }: ProductCardProps) {
   return (
     <Link href={`/product/${product.artikelcode}`} className="product-card">
       <div className="product-card-image">
@@ -17,6 +18,9 @@ export default function ProductCard({ product }: ProductCardProps) {
             width={280}
             height={250}
             className="w-full h-full object-contain"
+            loading={priority ? "eager" : undefined}
+            priority={priority}
+            fetchPriority={priority ? "high" : "auto"}
           />
         ) : (
           <div className="product-card-image-placeholder">🌿</div>
