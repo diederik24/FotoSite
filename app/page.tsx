@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Topbar from '@/components/Topbar';
 import LogoBanner from '@/components/LogoBanner';
 import ProductCard from '@/components/ProductCard';
+import ImagePreloader from '@/components/ImagePreloader';
 import { plantenData } from '@/data/products';
 import { getAllProducts, searchProducts } from '@/lib/supabase';
 import type { Product } from '@/lib/types';
@@ -13,26 +14,6 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>(plantenData);
   const [isLoading, setIsLoading] = useState(true);
   const [useSupabase, setUseSupabase] = useState(false);
-
-  // Preload alle afbeeldingen voor sneller laden
-  useEffect(() => {
-    const preloadImages = (productList: Product[]) => {
-      productList.forEach((product, index) => {
-        if (product.afbeelding) {
-          const img = new Image();
-          img.src = product.afbeelding;
-          // Stagger loading voor betere performance
-          if (index < 20) {
-            img.loading = 'eager' as any;
-          }
-        }
-      });
-    };
-
-    if (products.length > 0) {
-      preloadImages(products);
-    }
-  }, [products]);
 
   // Probeer producten uit Supabase te laden
   useEffect(() => {
@@ -85,6 +66,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      <ImagePreloader products={filteredProducts} />
       <Topbar />
       <LogoBanner />
 
