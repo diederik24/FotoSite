@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Product } from '@/lib/types';
+import LazyImage from './LazyImage';
 
 interface ProductCardProps {
   product: Product;
@@ -12,18 +12,18 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
     <Link href={`/product/${product.artikelcode}`} className="product-card">
       <div className="product-card-image">
         {product.afbeelding ? (
-          <Image
+          <LazyImage
             src={product.afbeelding}
             alt={product.artikelomschrijving || product.artikelcode}
             width={280}
             height={250}
-            className="w-full h-full object-contain"
-            loading={priority ? "eager" : undefined}
+            className="w-full h-full"
             priority={priority}
-            fetchPriority={priority ? "high" : "auto"}
           />
         ) : (
-          <div className="product-card-image-placeholder">🌿</div>
+          <div className="product-card-image-placeholder w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+            <span>Geen afbeelding</span>
+          </div>
         )}
       </div>
       <div className="product-card-info">

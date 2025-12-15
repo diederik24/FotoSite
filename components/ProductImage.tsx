@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import LazyImage from './LazyImage';
 
 interface ProductImageProps {
   src?: string;
@@ -9,18 +9,18 @@ export default function ProductImage({ src, alt }: ProductImageProps) {
   return (
     <div className="product-image">
       {src ? (
-        <Image
+        <LazyImage
           src={src}
           alt={alt}
           width={600}
           height={600}
-          className="w-full h-full object-contain block"
-          priority
-          loading="eager"
-          fetchPriority="high"
+          className="w-full h-full"
+          priority={true}
         />
       ) : (
-        <div className="product-image-placeholder">🌿</div>
+        <div className="product-image-placeholder w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+          <span>Geen afbeelding</span>
+        </div>
       )}
     </div>
   );
