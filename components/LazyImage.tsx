@@ -87,8 +87,7 @@ export default function LazyImage({
       attemptedSrc: img.src,
       naturalWidth: img.naturalWidth,
       naturalHeight: img.naturalHeight,
-      complete: img.complete,
-      error: img.error
+      complete: img.complete
     });
     
     // Wacht even voordat we error tonen - soms laadt de afbeelding nog
