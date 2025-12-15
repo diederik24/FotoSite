@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Loading Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .image-container {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            vertical-align: top;
+        }
+        .image-container img {
+            display: block;
+            max-width: 200px;
+            max-height: 200px;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .status.loading { background: #fff3cd; color: #856404; }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .info {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Image Loading Test</h1>
+    <p>Test verschillende manieren om afbeeldingen te laden</p>
+    
+    <div class="test-section">
+        <h2>✅ Werkende afbeelding (V09990)</h2>
+        <div class="image-container">
+            <img id="working-img" src="/Artikel Fotos/V09990.webp" alt="Working" />
+            <div id="working-status" class="status loading">Laden...</div>
+            <div id="working-info" class="info"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>❌ Problematische afbeeldingen</h2>
+        
+        <div class="image-container">
+            <h3>V09772</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09772-1" src="/Artikel Fotos/V09772.webp" alt="V09772" />
+                <div id="V09772-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09772-2" src="/Artikel Fotos/V09772.jpg" alt="V09772" />
+                <div id="V09772-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09772-info" class="info"></div>
+        </div>
+        
+        <div class="image-container">
+            <h3>V09669</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09669-1" src="/Artikel Fotos/V09669.webp" alt="V09669" />
+                <div id="V09669-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09669-2" src="/Artikel Fotos/V09669.jpg" alt="V09669" />
+                <div id="V09669-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09669-info" class="info"></div>
+        </div>
+        
+        <div class="image-container">
+            <h3>V09770</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09770-1" src="/Artikel Fotos/V09770.webp" alt="V09770" />
+                <div id="V09770-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09770-2" src="/Artikel Fotos/V09770.jpg" alt="V09770" />
+                <div id="V09770-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09770-info" class="info"></div>
+        </div>
+        
+        <div class="image-container">
+            <h3>V09664</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09664-1" src="/Artikel Fotos/V09664.webp" alt="V09664" />
+                <div id="V09664-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09664-2" src="/Artikel Fotos/V09664.jpg" alt="V09664" />
+                <div id="V09664-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09664-info" class="info"></div>
+        </div>
+        
+        <div class="image-container">
+            <h3>V09665</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09665-1" src="/Artikel Fotos/V09665.webp" alt="V09665" />
+                <div id="V09665-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09665-2" src="/Artikel Fotos/V09665.jpg" alt="V09665" />
+                <div id="V09665-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09665-info" class="info"></div>
+        </div>
+        
+        <div class="image-container">
+            <h3>V09666</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09666-1" src="/Artikel Fotos/V09666.webp" alt="V09666" />
+                <div id="V09666-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09666-2" src="/Artikel Fotos/V09666.jpg" alt="V09666" />
+                <div id="V09666-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09666-info" class="info"></div>
+        </div>
+        
+        <div class="image-container">
+            <h3>V09667</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09667-1" src="/Artikel Fotos/V09667.webp" alt="V09667" />
+                <div id="V09667-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09667-2" src="/Artikel Fotos/V09667.jpg" alt="V09667" />
+                <div id="V09667-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09667-info" class="info"></div>
+        </div>
+        
+        <div class="image-container">
+            <h3>V09668</h3>
+            <div>
+                <strong>Methode 1: Direct WebP</strong><br>
+                <img id="V09668-1" src="/Artikel Fotos/V09668.webp" alt="V09668" />
+                <div id="V09668-1-status" class="status loading">Laden...</div>
+            </div>
+            <div style="margin-top: 10px;">
+                <strong>Methode 2: JPG fallback</strong><br>
+                <img id="V09668-2" src="/Artikel Fotos/V09668.jpg" alt="V09668" />
+                <div id="V09668-2-status" class="status loading">Laden...</div>
+            </div>
+            <div id="V09668-info" class="info"></div>
+        </div>
+        
+    </div>
+    
+    <div class="test-section">
+        <h2>🔧 Debug Info</h2>
+        <pre id="debug-info"></pre>
+    </div>
+    
+    <script>
+        const debugInfo = [];
+        
+        function logDebug(message) {
+            debugInfo.push(`[${new Date().toLocaleTimeString()}] ${message}`);
+            document.getElementById('debug-info').textContent = debugInfo.join('\n');
+        }
+        
+        function testImage(imgId, src, statusId) {
+            const img = document.getElementById(imgId);
+            const status = document.getElementById(statusId);
+            
+            logDebug(`Testen: ${imgId} met src: ${src}`);
+            
+            img.onload = function() {
+                status.textContent = '✅ Geladen';
+                status.className = 'status success';
+                logDebug(`✅ ${imgId} geladen succesvol`);
+            };
+            
+            img.onerror = function(e) {
+                status.textContent = '❌ Fout';
+                status.className = 'status error';
+                logDebug(`❌ ${imgId} fout: ${src}`);
+                
+                // Probeer alternatieve paths
+                const altPaths = [
+                    src.replace('.webp', '.jpg'),
+                    src.replace('V', 'v'),
+                    src.replace('V', 'v').replace('.webp', '.jpg'),
+                ];
+                
+                logDebug(`Proberen alternatieve paths voor ${imgId}...`);
+                altPaths.forEach((altPath, idx) => {
+                    const testImg = new Image();
+                    testImg.onload = () => logDebug(`✅ Alternatief ${idx + 1} werkt: ${altPath}`);
+                    testImg.onerror = () => logDebug(`❌ Alternatief ${idx + 1} faalt: ${altPath}`);
+                    testImg.src = altPath;
+                });
+            };
+            
+            // Check of image al geladen is
+            if (img.complete) {
+                if (img.naturalHeight !== 0) {
+                    status.textContent = '✅ Al geladen';
+                    status.className = 'status success';
+                } else {
+                    status.textContent = '❌ Fout (complete maar geen height)';
+                    status.className = 'status error';
+                }
+            }
+        }
+        
+        // Test werkende afbeelding
+        testImage('working-img', '/Artikel Fotos/V09990.webp', 'working-status');
+        
+        // Test problematische afbeeldingen
+        
+        testImage('V09772-1', '/Artikel Fotos/V09772.webp', 'V09772-1-status');
+        testImage('V09772-2', '/Artikel Fotos/V09772.jpg', 'V09772-2-status');
+        
+        testImage('V09669-1', '/Artikel Fotos/V09669.webp', 'V09669-1-status');
+        testImage('V09669-2', '/Artikel Fotos/V09669.jpg', 'V09669-2-status');
+        
+        testImage('V09770-1', '/Artikel Fotos/V09770.webp', 'V09770-1-status');
+        testImage('V09770-2', '/Artikel Fotos/V09770.jpg', 'V09770-2-status');
+        
+        testImage('V09664-1', '/Artikel Fotos/V09664.webp', 'V09664-1-status');
+        testImage('V09664-2', '/Artikel Fotos/V09664.jpg', 'V09664-2-status');
+        
+        testImage('V09665-1', '/Artikel Fotos/V09665.webp', 'V09665-1-status');
+        testImage('V09665-2', '/Artikel Fotos/V09665.jpg', 'V09665-2-status');
+        
+        testImage('V09666-1', '/Artikel Fotos/V09666.webp', 'V09666-1-status');
+        testImage('V09666-2', '/Artikel Fotos/V09666.jpg', 'V09666-2-status');
+        
+        testImage('V09667-1', '/Artikel Fotos/V09667.webp', 'V09667-1-status');
+        testImage('V09667-2', '/Artikel Fotos/V09667.jpg', 'V09667-2-status');
+        
+        testImage('V09668-1', '/Artikel Fotos/V09668.webp', 'V09668-1-status');
+        testImage('V09668-2', '/Artikel Fotos/V09668.jpg', 'V09668-2-status');
+        
+        
+        logDebug('Script geladen, tests gestart');
+    </script>
+</body>
+</html>

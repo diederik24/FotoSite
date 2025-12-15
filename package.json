@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "import-supabase": "tsx scripts/import-to-supabase.ts"
+    "import-supabase": "tsx scripts/import-to-supabase.ts",
+    "test-images": "node scripts/test-image-loading.js",
+    "push-and-test": "node scripts/push-and-test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.87.1",
