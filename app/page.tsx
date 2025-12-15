@@ -4,7 +4,6 @@ import { useState, useMemo, useEffect } from 'react';
 import Topbar from '@/components/Topbar';
 import LogoBanner from '@/components/LogoBanner';
 import ProductCard from '@/components/ProductCard';
-import ImagePreloader from '@/components/ImagePreloader';
 import { plantenData } from '@/data/products';
 import { getAllProducts, searchProducts } from '@/lib/supabase';
 import type { Product } from '@/lib/types';
