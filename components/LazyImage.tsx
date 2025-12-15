@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 
 interface LazyImageProps {
   src: string;
@@ -27,7 +26,6 @@ export default function LazyImage({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(priority);
-  const [useFallback, setUseFallback] = useState(false);
   const imgRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -62,7 +60,6 @@ export default function LazyImage({
   useEffect(() => {
     setHasError(false);
     setIsLoaded(false);
-    setUseFallback(false);
   }, [src]);
 
   const handleLoad = () => {
@@ -78,27 +75,18 @@ export default function LazyImage({
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    
-    // Probeer eerst fallback naar normale img tag
-    if (!useFallback) {
-      setUseFallback(true);
-      setIsLoaded(false);
-      setHasError(false);
-    } else {
-      // Als fallback ook faalt, toon error
-      setHasError(true);
-      onError?.();
-    }
+    setHasError(true);
+    onError?.();
   };
 
-  // Timeout voor het geval de afbeelding te lang duurt (15 seconden)
+  // Timeout voor het geval de afbeelding te lang duurt (20 seconden)
   useEffect(() => {
     if (isInView && !isLoaded && !hasError) {
       timeoutRef.current = setTimeout(() => {
         if (!isLoaded) {
           handleError();
         }
-      }, 15000);
+      }, 20000);
     }
 
     return () => {
@@ -106,7 +94,7 @@ export default function LazyImage({
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [isInView, isLoaded, hasError, useFallback]);
+  }, [isInView, isLoaded, hasError]);
 
   return (
     <div ref={imgRef} className={`relative ${className}`} style={{ width, height }}>
@@ -123,39 +111,21 @@ export default function LazyImage({
             </div>
           )}
           
-          {/* Next.js Image of fallback naar normale img */}
+          {/* Normale img tag - werkt beter met unoptimized images */}
           {isInView && (
-            useFallback ? (
-              <img
-                src={src}
-                alt={alt}
-                width={width}
-                height={height}
-                className={`w-full h-full object-contain transition-opacity duration-300 relative z-10 ${
-                  isLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-                loading={priority ? 'eager' : 'lazy'}
-                decoding="async"
-                onLoad={handleLoad}
-                onError={handleError}
-              />
-            ) : (
-              <Image
-                src={src}
-                alt={alt}
-                width={width}
-                height={height}
-                className={`w-full h-full object-contain transition-opacity duration-300 relative z-10 ${
-                  isLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-                loading={priority ? 'eager' : 'lazy'}
-                priority={priority}
-                fetchPriority={priority ? 'high' : 'auto'}
-                decoding="async"
-                onLoad={handleLoad}
-                onError={handleError}
-              />
-            )
+            <img
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              className={`w-full h-full object-contain transition-opacity duration-300 relative z-10 ${
+                isLoaded ? 'opacity-100' : 'opacity-0'
+              }`}
+              loading={priority ? 'eager' : 'lazy'}
+              decoding="async"
+              onLoad={handleLoad}
+              onError={handleError}
+            />
           )}
         </>
       )}
