@@ -70,22 +70,18 @@ export default function LazyImage({
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    console.warn('Image failed to load:', src, e);
-    // Probeer nog een keer met kleine delay
-    setTimeout(() => {
-      if (imgElementRef.current && !isLoaded) {
-        const currentSrc = imgElementRef.current.src;
-        imgElementRef.current.src = '';
-        setTimeout(() => {
-          if (imgElementRef.current) {
-            imgElementRef.current.src = currentSrc;
-          }
-        }, 100);
-      } else {
-        setHasError(true);
-        onError?.();
-      }
-    }, 1000);
+    const img = e.currentTarget;
+    console.warn('Image failed to load:', {
+      src,
+      attemptedSrc: img.src,
+      naturalWidth: img.naturalWidth,
+      naturalHeight: img.naturalHeight,
+      complete: img.complete
+    });
+    
+    // Direct error tonen - geen retry meer, laat browser het afhandelen
+    setHasError(true);
+    onError?.();
   };
 
   // Check of afbeelding al geladen is wanneer img element wordt gemaakt
@@ -119,7 +115,16 @@ export default function LazyImage({
           {/* Normale img tag - simpel en betrouwbaar zoals bol.com */}
           {isInView && (
             <img
-              ref={imgElementRef}
+              ref={(img) => {
+                imgElementRef.current = img;
+                if (img) {
+                  // Check of afbeelding al geladen is (cached)
+                  if (img.complete && img.naturalHeight !== 0) {
+                    setIsLoaded(true);
+                    setHasError(false);
+                  }
+                }
+              }}
               src={src}
               alt={alt}
               width={width}
