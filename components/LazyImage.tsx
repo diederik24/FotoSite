@@ -69,13 +69,27 @@ export default function LazyImage({
   }, [src]);
 
   const handleLoad = () => {
+    console.log('✅ Image loaded successfully:', src);
     setIsLoaded(true);
     setHasError(false);
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+      errorTimeoutRef.current = null;
+    }
     onLoad?.();
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const img = e.currentTarget;
+    
+    console.warn('❌ Image error event triggered:', {
+      src,
+      attemptedSrc: img.src,
+      naturalWidth: img.naturalWidth,
+      naturalHeight: img.naturalHeight,
+      complete: img.complete,
+      error: img.error
+    });
     
     // Wacht even voordat we error tonen - soms laadt de afbeelding nog
     if (errorTimeoutRef.current) {
@@ -85,12 +99,13 @@ export default function LazyImage({
     errorTimeoutRef.current = setTimeout(() => {
       // Check nog een keer of de afbeelding misschien toch geladen is
       if (img.complete && img.naturalHeight !== 0) {
+        console.log('✅ Image loaded after error timeout:', src);
         setIsLoaded(true);
         setHasError(false);
         return;
       }
       
-      console.warn('Image failed to load:', {
+      console.error('❌ Image definitively failed to load:', {
         src,
         attemptedSrc: img.src,
         naturalWidth: img.naturalWidth,
@@ -100,7 +115,7 @@ export default function LazyImage({
       
       setHasError(true);
       onError?.();
-    }, 2000); // Geef 2 seconden de tijd
+    }, 3000); // Geef 3 seconden de tijd
   };
 
   // Check of afbeelding al geladen is wanneer img element wordt gemaakt
@@ -138,10 +153,21 @@ export default function LazyImage({
               ref={(img) => {
                 imgElementRef.current = img;
                 if (img) {
+                  console.log('🖼️ Image ref set:', {
+                    src,
+                    complete: img.complete,
+                    naturalHeight: img.naturalHeight,
+                    naturalWidth: img.naturalWidth,
+                    srcAttr: img.getAttribute('src'),
+                    currentSrc: img.src
+                  });
+                  
                   // Check of afbeelding al geladen is (cached)
                   if (img.complete && img.naturalHeight !== 0) {
+                    console.log('✅ Image already loaded from cache:', src);
                     setIsLoaded(true);
                     setHasError(false);
+                    onLoad?.();
                   }
                 }
               }}
