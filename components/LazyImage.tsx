@@ -25,10 +25,10 @@ export default function LazyImage({
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  // Voor priority: direct true, anders false en wachten op Intersection Observer
   const [isInView, setIsInView] = useState(priority);
   const imgRef = useRef<HTMLDivElement>(null);
   const imgElementRef = useRef<HTMLImageElement | null>(null);
+  const retryCountRef = useRef(0);
 
   // Intersection Observer voor non-priority afbeeldingen
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function LazyImage({
         });
       },
       {
-        rootMargin: '200px', // Start loading 200px voordat het in view komt voor sneller laden
+        rootMargin: '200px',
         threshold: 0.01,
       }
     );
@@ -62,28 +62,48 @@ export default function LazyImage({
   useEffect(() => {
     setHasError(false);
     setIsLoaded(false);
+    retryCountRef.current = 0;
   }, [src]);
-
-  // Check of afbeelding al geladen is wanneer component mount (voor cached images)
-  useEffect(() => {
-    if (isInView && imgElementRef.current) {
-      const img = imgElementRef.current;
-      // Check of afbeelding al compleet is geladen (bijv. uit cache)
-      if (img.complete && img.naturalHeight !== 0) {
-        setIsLoaded(true);
-        onLoad?.();
-      }
-    }
-  }, [isInView, onLoad]);
 
   const handleLoad = () => {
     setIsLoaded(true);
+    setHasError(false);
     onLoad?.();
   };
 
   const handleError = () => {
-    setHasError(true);
-    onError?.();
+    // Retry maximaal 2 keer
+    if (retryCountRef.current < 2) {
+      retryCountRef.current += 1;
+      // Reset en probeer opnieuw met kleine delay
+      setTimeout(() => {
+        if (imgElementRef.current) {
+          const currentSrc = imgElementRef.current.src;
+          imgElementRef.current.src = '';
+          setTimeout(() => {
+            if (imgElementRef.current) {
+              imgElementRef.current.src = currentSrc;
+            }
+          }, 100);
+        }
+      }, 500 * retryCountRef.current);
+    } else {
+      setHasError(true);
+      onError?.();
+    }
+  };
+
+  // Check of afbeelding al geladen is wanneer img element wordt gemaakt
+  const handleRef = (img: HTMLImageElement | null) => {
+    imgElementRef.current = img;
+    if (img) {
+      // Check of afbeelding al compleet is geladen (bijv. uit cache)
+      if (img.complete && img.naturalHeight !== 0) {
+        setIsLoaded(true);
+        setHasError(false);
+        onLoad?.();
+      }
+    }
   };
 
   return (
@@ -94,24 +114,17 @@ export default function LazyImage({
         </div>
       ) : (
         <>
-          {/* Loading placeholder - alleen tonen tijdens initial load */}
+          {/* Loading placeholder */}
           {!isLoaded && isInView && (
             <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-0">
               <div className="w-6 h-6 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
             </div>
           )}
           
-          {/* Normale img tag - gebruik native lazy alleen als we geen Intersection Observer gebruiken */}
+          {/* Normale img tag */}
           {isInView && (
             <img
-              ref={(img) => {
-                imgElementRef.current = img;
-                // Check of afbeelding al geladen is (bijv. uit cache)
-                if (img && img.complete && img.naturalHeight !== 0) {
-                  setIsLoaded(true);
-                  onLoad?.();
-                }
-              }}
+              ref={handleRef}
               src={src}
               alt={alt}
               width={width}
