@@ -28,6 +28,7 @@ export default function LazyImage({
   const [isInView, setIsInView] = useState(priority);
   const imgRef = useRef<HTMLDivElement>(null);
   const imgElementRef = useRef<HTMLImageElement | null>(null);
+  const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Intersection Observer voor non-priority afbeeldingen
   useEffect(() => {
@@ -59,6 +60,10 @@ export default function LazyImage({
 
   // Reset state wanneer src verandert
   useEffect(() => {
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+      errorTimeoutRef.current = null;
+    }
     setHasError(false);
     setIsLoaded(false);
   }, [src]);
@@ -71,17 +76,31 @@ export default function LazyImage({
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const img = e.currentTarget;
-    console.warn('Image failed to load:', {
-      src,
-      attemptedSrc: img.src,
-      naturalWidth: img.naturalWidth,
-      naturalHeight: img.naturalHeight,
-      complete: img.complete
-    });
     
-    // Direct error tonen - geen retry meer, laat browser het afhandelen
-    setHasError(true);
-    onError?.();
+    // Wacht even voordat we error tonen - soms laadt de afbeelding nog
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+    }
+    
+    errorTimeoutRef.current = setTimeout(() => {
+      // Check nog een keer of de afbeelding misschien toch geladen is
+      if (img.complete && img.naturalHeight !== 0) {
+        setIsLoaded(true);
+        setHasError(false);
+        return;
+      }
+      
+      console.warn('Image failed to load:', {
+        src,
+        attemptedSrc: img.src,
+        naturalWidth: img.naturalWidth,
+        naturalHeight: img.naturalHeight,
+        complete: img.complete
+      });
+      
+      setHasError(true);
+      onError?.();
+    }, 2000); // Geef 2 seconden de tijd
   };
 
   // Check of afbeelding al geladen is wanneer img element wordt gemaakt
