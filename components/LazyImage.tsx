@@ -25,16 +25,10 @@ export default function LazyImage({
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  // Voor priority: direct true, anders false en wachten op Intersection Observer
   const [isInView, setIsInView] = useState(priority);
   const imgRef = useRef<HTMLDivElement>(null);
   const imgElementRef = useRef<HTMLImageElement | null>(null);
-
-  // Voor priority afbeeldingen: direct laden
-  useEffect(() => {
-    if (priority) {
-      setIsInView(true);
-    }
-  }, [priority]);
 
   // Intersection Observer voor non-priority afbeeldingen
   useEffect(() => {
@@ -106,7 +100,7 @@ export default function LazyImage({
               className={`w-full h-full object-contain transition-opacity duration-200 relative z-10 ${
                 isLoaded ? 'opacity-100' : 'opacity-0'
               }`}
-              loading={priority ? 'eager' : undefined}
+              loading={priority ? 'eager' : 'lazy'}
               decoding="async"
               fetchPriority={priority ? 'high' : 'auto'}
               onLoad={handleLoad}

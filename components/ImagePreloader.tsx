@@ -9,27 +9,29 @@ interface ImagePreloaderProps {
 
 export default function ImagePreloader({ products }: ImagePreloaderProps) {
   useEffect(() => {
-    // Preload alleen de eerste 12 afbeeldingen (above the fold) voor sneller laden
+    // Preload alleen de eerste 12 afbeeldingen door Image objecten te maken
+    // Dit voorkomt conflicten met link preload tags
     const preloadImages = () => {
-      const maxPreload = 12; // Alleen eerste 12 afbeeldingen preloaden
+      const maxPreload = 12;
       const productsToPreload = products.slice(0, maxPreload);
       
       productsToPreload.forEach((product) => {
         if (product.afbeelding) {
-          // Gebruik link preload voor snellere initial load
-          const link = document.createElement('link');
-          link.rel = 'preload';
-          link.as = 'image';
-          link.href = product.afbeelding;
-          link.fetchPriority = 'high';
-          document.head.appendChild(link);
+          // Gebruik Image object voor browser cache zonder conflicten
+          const img = new Image();
+          img.src = product.afbeelding;
+          img.fetchPriority = 'high';
         }
       });
     };
 
     if (products.length > 0) {
-      // Start preloading direct voor snellere initial load
-      preloadImages();
+      // Kleine delay zodat de DOM eerst renderd
+      const timer = setTimeout(() => {
+        preloadImages();
+      }, 50);
+      
+      return () => clearTimeout(timer);
     }
   }, [products]);
 
