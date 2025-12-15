@@ -90,20 +90,26 @@ export default function LazyImage({
       complete: img.complete
     });
     
-    // Wacht even voordat we error tonen - soms laadt de afbeelding nog
+    // Negeer error events tijdelijk - laat de browser het zelf afhandelen
+    // Soms worden error events getriggerd terwijl de afbeelding nog laadt
+    // We checken later of de afbeelding toch geladen is
     if (errorTimeoutRef.current) {
       clearTimeout(errorTimeoutRef.current);
     }
     
+    // Check na 5 seconden of de afbeelding misschien toch geladen is
     errorTimeoutRef.current = setTimeout(() => {
-      // Check nog een keer of de afbeelding misschien toch geladen is
-      if (img.complete && img.naturalHeight !== 0) {
-        console.log('✅ Image loaded after error timeout:', src);
-        setIsLoaded(true);
-        setHasError(false);
-        return;
+      if (imgElementRef.current) {
+        const checkImg = imgElementRef.current;
+        if (checkImg.complete && checkImg.naturalHeight !== 0) {
+          console.log('✅ Image loaded after error timeout:', src);
+          setIsLoaded(true);
+          setHasError(false);
+          return;
+        }
       }
       
+      // Alleen error tonen als de afbeelding echt niet geladen is
       console.error('❌ Image definitively failed to load:', {
         src,
         attemptedSrc: img.src,
@@ -114,7 +120,7 @@ export default function LazyImage({
       
       setHasError(true);
       onError?.();
-    }, 3000); // Geef 3 seconden de tijd
+    }, 5000); // Geef 5 seconden de tijd
   };
 
   // Check of afbeelding al geladen is wanneer img element wordt gemaakt
