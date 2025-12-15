@@ -113,6 +113,7 @@ export default function LazyImage({
           )}
           
           {/* Normale img tag - simpel en betrouwbaar zoals bol.com */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           {isInView && (
             <img
               ref={(img) => {
