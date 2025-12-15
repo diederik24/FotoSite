@@ -64,6 +64,18 @@ export default function LazyImage({
     setIsLoaded(false);
   }, [src]);
 
+  // Check of afbeelding al geladen is wanneer component mount (voor cached images)
+  useEffect(() => {
+    if (isInView && imgElementRef.current) {
+      const img = imgElementRef.current;
+      // Check of afbeelding al compleet is geladen (bijv. uit cache)
+      if (img.complete && img.naturalHeight !== 0) {
+        setIsLoaded(true);
+        onLoad?.();
+      }
+    }
+  }, [isInView, onLoad]);
+
   const handleLoad = () => {
     setIsLoaded(true);
     onLoad?.();
@@ -92,7 +104,14 @@ export default function LazyImage({
           {/* Normale img tag - gebruik native lazy alleen als we geen Intersection Observer gebruiken */}
           {isInView && (
             <img
-              ref={imgElementRef}
+              ref={(img) => {
+                imgElementRef.current = img;
+                // Check of afbeelding al geladen is (bijv. uit cache)
+                if (img && img.complete && img.naturalHeight !== 0) {
+                  setIsLoaded(true);
+                  onLoad?.();
+                }
+              }}
               src={src}
               alt={alt}
               width={width}
