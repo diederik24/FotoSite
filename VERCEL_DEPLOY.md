@@ -50,3 +50,4 @@ Als de site niet werkt:
 2. Controleer of environment variables correct zijn ingesteld
 3. Check of Supabase RLS policies "Allow public read access" hebben
 
+

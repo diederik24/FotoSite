@@ -103,3 +103,4 @@ Na setup kun je:
 - Real-time updates implementeren (als je dat wilt)
 - Authenticatie toevoegen voor admin functionaliteit
 
+

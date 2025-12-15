@@ -46,3 +46,4 @@ git push
 - Je Supabase credentials blijven lokaal en veilig
 - Alle code en afbeeldingen worden wel geüpload
 
+

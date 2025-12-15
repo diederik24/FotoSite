@@ -36,3 +36,4 @@ SELECT COUNT(*) FROM products;
 -- Verwijder test product
 DELETE FROM products WHERE artikelcode = 'TEST001';
 
+

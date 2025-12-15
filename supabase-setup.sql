@@ -61,3 +61,4 @@ CREATE TRIGGER update_products_updated_at
 -- Controleer of RLS is enabled:
 -- SELECT tablename, rowsecurity FROM pg_tables WHERE tablename = 'products';
 
+

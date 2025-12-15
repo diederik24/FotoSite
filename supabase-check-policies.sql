@@ -34,3 +34,4 @@ RETURNING *;
 -- Check of het werkt
 SELECT * FROM products WHERE artikelcode = 'TEST001';
 
+

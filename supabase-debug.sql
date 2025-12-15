@@ -84,3 +84,4 @@ JOIN information_schema.key_column_usage AS kcu
   ON tc.constraint_name = kcu.constraint_name
 WHERE tc.table_name = 'products';
 
+

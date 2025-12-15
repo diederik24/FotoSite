@@ -46,3 +46,4 @@ RETURNING *;
 -- Check resultaat
 SELECT COUNT(*) AS total_products FROM products;
 
+
