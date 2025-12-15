@@ -27,8 +27,16 @@ export default function LazyImage({
   const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(priority);
   const imgRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const imgElementRef = useRef<HTMLImageElement | null>(null);
 
+  // Voor priority afbeeldingen: direct laden
+  useEffect(() => {
+    if (priority) {
+      setIsInView(true);
+    }
+  }, [priority]);
+
+  // Intersection Observer voor non-priority afbeeldingen
   useEffect(() => {
     if (priority || isInView) return;
 
@@ -42,7 +50,7 @@ export default function LazyImage({
         });
       },
       {
-        rootMargin: '50px', // Start loading 50px voordat het in view komt
+        rootMargin: '200px', // Start loading 200px voordat het in view komt voor sneller laden
         threshold: 0.01,
       }
     );
@@ -63,38 +71,14 @@ export default function LazyImage({
   }, [src]);
 
   const handleLoad = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
     setIsLoaded(true);
     onLoad?.();
   };
 
   const handleError = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
     setHasError(true);
     onError?.();
   };
-
-  // Timeout voor het geval de afbeelding te lang duurt (20 seconden)
-  useEffect(() => {
-    if (isInView && !isLoaded && !hasError) {
-      timeoutRef.current = setTimeout(() => {
-        if (!isLoaded) {
-          handleError();
-        }
-      }, 20000);
-    }
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [isInView, isLoaded, hasError]);
 
   return (
     <div ref={imgRef} className={`relative ${className}`} style={{ width, height }}>
@@ -104,25 +88,27 @@ export default function LazyImage({
         </div>
       ) : (
         <>
-          {/* Loading placeholder */}
-          {!isLoaded && (
+          {/* Loading placeholder - alleen tonen tijdens initial load */}
+          {!isLoaded && isInView && (
             <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-0">
-              <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
+              <div className="w-6 h-6 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
             </div>
           )}
           
-          {/* Normale img tag - werkt beter met unoptimized images */}
+          {/* Normale img tag - gebruik native lazy alleen als we geen Intersection Observer gebruiken */}
           {isInView && (
             <img
+              ref={imgElementRef}
               src={src}
               alt={alt}
               width={width}
               height={height}
-              className={`w-full h-full object-contain transition-opacity duration-300 relative z-10 ${
+              className={`w-full h-full object-contain transition-opacity duration-200 relative z-10 ${
                 isLoaded ? 'opacity-100' : 'opacity-0'
               }`}
-              loading={priority ? 'eager' : 'lazy'}
+              loading={priority ? 'eager' : undefined}
               decoding="async"
+              fetchPriority={priority ? 'high' : 'auto'}
               onLoad={handleLoad}
               onError={handleError}
             />
