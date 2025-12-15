@@ -70,11 +70,22 @@ export default function LazyImage({
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    // Alleen error tonen als het echt mislukt is
-    // Geen retry logica - laat de browser het zelf afhandelen
-    console.warn('Image failed to load:', src);
-    setHasError(true);
-    onError?.();
+    console.warn('Image failed to load:', src, e);
+    // Probeer nog een keer met kleine delay
+    setTimeout(() => {
+      if (imgElementRef.current && !isLoaded) {
+        const currentSrc = imgElementRef.current.src;
+        imgElementRef.current.src = '';
+        setTimeout(() => {
+          if (imgElementRef.current) {
+            imgElementRef.current.src = currentSrc;
+          }
+        }, 100);
+      } else {
+        setHasError(true);
+        onError?.();
+      }
+    }, 1000);
   };
 
   // Check of afbeelding al geladen is wanneer img element wordt gemaakt
