@@ -2419,14 +2419,14 @@ export const plantenData: Product[] = [
   {
     "artikelcode": "V09601",
     "artikelomschrijving": "Rubus f. 'Tayberry'",
-    "afbeelding": "/Artikel Fotos/v09601.jpg",
+    "afbeelding": "/Artikel Fotos/V09601.jpg",
     "potmaat": "Struik C2,0L vierk.",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09602",
     "artikelomschrijving": "Rubus f. 'Thornless Evergreen'",
-    "afbeelding": "/Artikel Fotos/v09602.jpg",
+    "afbeelding": "/Artikel Fotos/V09602.jpg",
     "potmaat": "Struik C2,0L vierk.",
     "verpakkingsinhoud": "1"
   },
@@ -2587,14 +2587,14 @@ export const plantenData: Product[] = [
   {
     "artikelcode": "V09643",
     "artikelomschrijving": "Actinidia a. 'Nostino'",
-    "afbeelding": "/Artikel Fotos/v09643.jpg",
+    "afbeelding": "/Artikel Fotos/V09643.jpg",
     "potmaat": "Stok 120 cm, C4.0L",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09645",
     "artikelomschrijving": "Actinidia a. 'Vitikiwi'®",
-    "afbeelding": "/Artikel Fotos/v09645.jpg",
+    "afbeelding": "/Artikel Fotos/V09645.jpg",
     "potmaat": "Stok 120 cm, C4.0L",
     "verpakkingsinhoud": "1"
   },
@@ -2685,21 +2685,21 @@ export const plantenData: Product[] = [
   {
     "artikelcode": "V09659",
     "artikelomschrijving": "Vitis v. 'Talizman'",
-    "afbeelding": "/Artikel Fotos/v09659.jpg",
+    "afbeelding": "/Artikel Fotos/V09659.jpg",
     "potmaat": "Stok 120 cm, C4.0L",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09660",
     "artikelomschrijving": "Vitis v. 'Tonia'® hobrevt",
-    "afbeelding": "/Artikel Fotos/v09660.jpg",
+    "afbeelding": "/Artikel Fotos/V09660.jpg",
     "potmaat": "Stok 120 cm, C4.0L",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09661",
     "artikelomschrijving": "Vitis v. 'Vanessa'",
-    "afbeelding": "/Artikel Fotos/v09661.jpg",
+    "afbeelding": "/Artikel Fotos/V09661.jpg",
     "potmaat": "Stok 120 cm, C4.0L",
     "verpakkingsinhoud": "1"
   },
@@ -2713,63 +2713,63 @@ export const plantenData: Product[] = [
   {
     "artikelcode": "V09663",
     "artikelomschrijving": "Ribes n. 'Titania'",
-    "afbeelding": "/Artikel Fotos/v09663.jpg",
+    "afbeelding": "/Artikel Fotos/V09663.jpg",
     "potmaat": "Stam 60cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09664",
     "artikelomschrijving": "Ribes r. 'Werdavia'",
-    "afbeelding": "/Artikel Fotos/v09664.jpg",
+    "afbeelding": "/Artikel Fotos/V09664.jpg",
     "potmaat": "Stam 60cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09665",
     "artikelomschrijving": "Ribes u.-c. 'Hinnonmaki Groen'",
-    "afbeelding": "/Artikel Fotos/v09665.jpg",
+    "afbeelding": "/Artikel Fotos/V09665.jpg",
     "potmaat": "Stam 60cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09666",
     "artikelomschrijving": "Ribes n. 'Titania'",
-    "afbeelding": "/Artikel Fotos/v09666.jpg",
+    "afbeelding": "/Artikel Fotos/V09666.jpg",
     "potmaat": "Stam 90cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09667",
     "artikelomschrijving": "Ribes r. 'Werdavia'",
-    "afbeelding": "/Artikel Fotos/v09667.jpg",
+    "afbeelding": "/Artikel Fotos/V09667.jpg",
     "potmaat": "Stam 90cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09668",
     "artikelomschrijving": "Ribes r. 'Jonkheer van Tets'",
-    "afbeelding": "/Artikel Fotos/v09668.jpg",
+    "afbeelding": "/Artikel Fotos/V09668.jpg",
     "potmaat": "Stam 90cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09669",
     "artikelomschrijving": "Ribes u.-c. 'Hinnonmaki Groen'",
-    "afbeelding": "/Artikel Fotos/v09669.jpg",
+    "afbeelding": "/Artikel Fotos/V09669.jpg",
     "potmaat": "Stam 90cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09770",
     "artikelomschrijving": "Ribes u.-c. 'Hinnonmaki Rood'",
-    "afbeelding": "/Artikel Fotos/v09770.jpg",
+    "afbeelding": "/Artikel Fotos/V09770.jpg",
     "potmaat": "Stam 90cm C5,0L rond",
     "verpakkingsinhoud": "1"
   },
   {
     "artikelcode": "V09772",
     "artikelomschrijving": "Prunus c. 'Hollywood'",
-    "afbeelding": "/Artikel Fotos/v09772.jpg",
+    "afbeelding": "/Artikel Fotos/V09772.jpg",
     "potmaat": "Struik C7,5L rond",
     "verpakkingsinhoud": "1"
   },
