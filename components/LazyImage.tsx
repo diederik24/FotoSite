@@ -24,11 +24,9 @@ export default function LazyImage({
   onError,
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(priority);
   const imgRef = useRef<HTMLDivElement>(null);
   const imgElementRef = useRef<HTMLImageElement | null>(null);
-  const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Intersection Observer voor non-priority afbeeldingen
   useEffect(() => {
@@ -60,68 +58,16 @@ export default function LazyImage({
 
   // Reset state wanneer src verandert
   useEffect(() => {
-    if (errorTimeoutRef.current) {
-      clearTimeout(errorTimeoutRef.current);
-      errorTimeoutRef.current = null;
-    }
-    setHasError(false);
     setIsLoaded(false);
   }, [src]);
 
   const handleLoad = () => {
-    console.log('✅ Image loaded successfully:', src);
     setIsLoaded(true);
-    setHasError(false);
-    if (errorTimeoutRef.current) {
-      clearTimeout(errorTimeoutRef.current);
-      errorTimeoutRef.current = null;
-    }
     onLoad?.();
   };
 
-  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const img = e.currentTarget;
-    
-    console.warn('❌ Image error event triggered:', {
-      src,
-      attemptedSrc: img.src,
-      naturalWidth: img.naturalWidth,
-      naturalHeight: img.naturalHeight,
-      complete: img.complete
-    });
-    
-    // Negeer error events tijdelijk - laat de browser het zelf afhandelen
-    // Soms worden error events getriggerd terwijl de afbeelding nog laadt
-    // We checken later of de afbeelding toch geladen is
-    if (errorTimeoutRef.current) {
-      clearTimeout(errorTimeoutRef.current);
-    }
-    
-    // Check na 5 seconden of de afbeelding misschien toch geladen is
-    errorTimeoutRef.current = setTimeout(() => {
-      if (imgElementRef.current) {
-        const checkImg = imgElementRef.current;
-        if (checkImg.complete && checkImg.naturalHeight !== 0) {
-          console.log('✅ Image loaded after error timeout:', src);
-          setIsLoaded(true);
-          setHasError(false);
-          return;
-        }
-      }
-      
-      // Alleen error tonen als de afbeelding echt niet geladen is
-      console.error('❌ Image definitively failed to load:', {
-        src,
-        attemptedSrc: img.src,
-        naturalWidth: img.naturalWidth,
-        naturalHeight: img.naturalHeight,
-        complete: img.complete
-      });
-      
-      setHasError(true);
-      onError?.();
-    }, 5000); // Geef 5 seconden de tijd
-  };
+  // Geen error handler - laat de browser het zelf afhandelen
+  // Als de afbeelding niet laadt, blijft het gewoon op loading state staan
 
   // Check of afbeelding al geladen is wanneer img element wordt gemaakt
   useEffect(() => {
@@ -130,7 +76,6 @@ export default function LazyImage({
       // Check of afbeelding al compleet is geladen (bijv. uit cache)
       if (img.complete && img.naturalHeight !== 0) {
         setIsLoaded(true);
-        setHasError(false);
         onLoad?.();
       }
     }
@@ -138,59 +83,39 @@ export default function LazyImage({
 
   return (
     <div ref={imgRef} className={`relative ${className}`} style={{ width, height }}>
-      {hasError ? (
-        <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400 text-sm">
-          <span>Afbeelding laden mislukt</span>
+      {/* Loading placeholder - alleen tonen als nog niet geladen */}
+      {!isLoaded && isInView && (
+        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-0">
+          <div className="w-6 h-6 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
         </div>
-      ) : (
-        <>
-          {/* Loading placeholder - alleen tonen als nog niet geladen */}
-          {!isLoaded && isInView && (
-            <div className="absolute inset-0 bg-gray-100 flex items-center justify-center z-0">
-              <div className="w-6 h-6 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
-            </div>
-          )}
-          
-          {/* Normale img tag - simpel en betrouwbaar zoals bol.com */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          {isInView && (
-            <img
-              ref={(img) => {
-                imgElementRef.current = img;
-                if (img) {
-                  console.log('🖼️ Image ref set:', {
-                    src,
-                    complete: img.complete,
-                    naturalHeight: img.naturalHeight,
-                    naturalWidth: img.naturalWidth,
-                    srcAttr: img.getAttribute('src'),
-                    currentSrc: img.src
-                  });
-                  
-                  // Check of afbeelding al geladen is (cached)
-                  if (img.complete && img.naturalHeight !== 0) {
-                    console.log('✅ Image already loaded from cache:', src);
-                    setIsLoaded(true);
-                    setHasError(false);
-                    onLoad?.();
-                  }
-                }
-              }}
-              src={src}
-              alt={alt}
-              width={width}
-              height={height}
-              className={`w-full h-full object-contain transition-opacity duration-200 relative z-10 ${
-                isLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              loading={priority ? 'eager' : 'lazy'}
-              decoding="async"
-              fetchPriority={priority ? 'high' : 'auto'}
-              onLoad={handleLoad}
-              onError={handleError}
-            />
-          )}
-        </>
+      )}
+      
+      {/* Normale img tag - simpel en betrouwbaar zoals bol.com */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {isInView && (
+        <img
+          ref={(img) => {
+            imgElementRef.current = img;
+            if (img) {
+              // Check of afbeelding al geladen is (cached)
+              if (img.complete && img.naturalHeight !== 0) {
+                setIsLoaded(true);
+                onLoad?.();
+              }
+            }
+          }}
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={`w-full h-full object-contain transition-opacity duration-200 relative z-10 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
+          onLoad={handleLoad}
+        />
       )}
     </div>
   );
