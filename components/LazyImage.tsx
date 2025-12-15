@@ -82,7 +82,7 @@ export default function LazyImage({
     if (isInView && imgElementRef.current) {
       const img = imgElementRef.current;
       // Check of afbeelding al compleet is geladen (bijv. uit cache)
-      if (img.complete && img.naturalHeight !== 0 && !img.error) {
+      if (img.complete && img.naturalHeight !== 0) {
         setIsLoaded(true);
         setHasError(false);
         onLoad?.();
