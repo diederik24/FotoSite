@@ -59,7 +59,7 @@ export default function WebshopPopup() {
             <div className="webshop-popup-badge">NIEUW!</div>
             <h2 className="webshop-popup-title">Onze nieuwe webshop</h2>
             <p className="webshop-popup-quote">
-              "Van jarenlange expertise naar digitale innovatie - ontdek het nieuwe tijdperk van online planten bestellen."
+              &quot;Van jarenlange expertise naar digitale innovatie - ontdek het nieuwe tijdperk van online planten bestellen.&quot;
             </p>
             <Link 
               href="/catalogus" 

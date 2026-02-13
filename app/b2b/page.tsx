@@ -21,7 +21,7 @@ export default function B2BPage() {
                 Groenexport.
               </h1>
               <p className="mt-4 md:mt-6 text-base md:text-lg text-gray-600 max-w-lg leading-relaxed">
-                Wij leveren hoogwaardige planten aan tuincentra's, hoveniers en groen aanleggers. Met onze realtime voorraad en exclusieve B2B-prijzen bent u verzekerd van de beste kwaliteit voor uw klanten.
+                Wij leveren hoogwaardige planten aan tuincentra&apos;s, hoveniers en groen aanleggers. Met onze realtime voorraad en exclusieve B2B-prijzen bent u verzekerd van de beste kwaliteit voor uw klanten.
               </p>
             </div>
 

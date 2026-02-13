@@ -109,7 +109,7 @@ export default function TemplatesPage() {
             <h3 className="font-semibold text-blue-900 mb-1">Template Tips</h3>
             <p className="text-sm text-blue-700">
               Gebruik templates om tijd te besparen bij het maken van campagnes. 
-              Je kunt variabelen gebruiken zoals {'{'}{'{'}}naam{'}'}{'}'} en {'{'}{'{'}}bedrijf{'}'}{'}'} voor personalisatie.
+              Je kunt variabelen gebruiken zoals {'{{'}naam{'}}'} en {'{{'}bedrijf{'}}'} voor personalisatie.
             </p>
           </div>
         </div>
