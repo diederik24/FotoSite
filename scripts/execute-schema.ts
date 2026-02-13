@@ -74,8 +74,8 @@ async function executeSchema() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': serviceRoleKey,
-          'Authorization': `Bearer ${serviceRoleKey}`
+          'apikey': serviceRoleKey!,
+          'Authorization': `Bearer ${serviceRoleKey!}`
         },
         body: JSON.stringify({ sql: statement })
       });
