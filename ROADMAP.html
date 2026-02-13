@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Straver B2B Webshop - Ontwikkelings Roadmap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3bb13b 0%, #34a034 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .status-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .status-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .status-card h3 {
+            font-size: 2rem;
+            color: #3bb13b;
+            margin-bottom: 5px;
+        }
+
+        .status-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3bb13b;
+        }
+
+        .week {
+            background: #f8f9fa;
+            border-left: 4px solid #3bb13b;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .week:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(59, 177, 59, 0.15);
+        }
+
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .week-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .week-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .tasks {
+            list-style: none;
+        }
+
+        .task {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .task-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .task-icon.priority-high {
+            background: #ff4444;
+            color: white;
+        }
+
+        .task-icon.priority-medium {
+            background: #ffaa00;
+            color: white;
+        }
+
+        .task-icon.priority-low {
+            background: #3bb13b;
+            color: white;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .task-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .completed {
+            opacity: 0.6;
+        }
+
+        .completed .task-icon {
+            background: #28a745;
+        }
+
+        .completed .task-title {
+            text-decoration: line-through;
+        }
+
+        .current-status {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .current-status h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .current-status ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .current-status li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .current-status li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .tech-stack {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .tech-stack h3 {
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .tech-stack ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            list-style: none;
+        }
+
+        .tech-stack li {
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .priority-high {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .priority-medium {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .priority-low {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .week-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .status-overview {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 Straver B2B Webshop</h1>
+            <p>Ontwikkelings Roadmap - Professionele B2B Webshop voor Groothandel</p>
+        </div>
+
+        <div class="status-overview">
+            <div class="status-card">
+                <h3>~40%</h3>
+                <p>Project Voltooid</p>
+            </div>
+            <div class="status-card">
+                <h3>8</h3>
+                <p>Weken Plan</p>
+            </div>
+            <div class="status-card">
+                <h3>25+</h3>
+                <p>Taken</p>
+            </div>
+            <div class="status-card">
+                <h3>B2B</h3>
+                <p>Focus</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Tech Stack -->
+            <div class="tech-stack">
+                <h3>🛠️ Huidige Tech Stack</h3>
+                <ul>
+                    <li>✅ Next.js 14 (App Router)</li>
+                    <li>✅ TypeScript</li>
+                    <li>✅ Tailwind CSS</li>
+                    <li>✅ Supabase (PostgreSQL)</li>
+                    <li>✅ React Context API</li>
+                    <li>✅ Lucide Icons</li>
+                </ul>
+            </div>
+
+            <!-- Huidige Status -->
+            <div class="current-status">
+                <h3>✅ Wat werkt er al?</h3>
+                <ul>
+                    <li>Next.js 14 setup met TypeScript en Tailwind CSS</li>
+                    <li>Supabase database schema (products, customers, orders, cart_items)</li>
+                    <li>Product catalogus met zoekfunctionaliteit</li>
+                    <li>Winkelwagen UI (client-side, niet persistent)</li>
+                    <li>Admin panel structuur (products, orders, customers)</li>
+                    <li>Admin login functionaliteit</li>
+                    <li>Product CRUD operaties (Create, Read, Update, Delete)</li>
+                    <li>Mooie homepage met moderne UI</li>
+                    <li>B2B login pagina (UI alleen)</li>
+                    <li>Responsive design</li>
+                    <li>Multi-language support (basis)</li>
+                </ul>
+            </div>
+
+            <!-- Week 1 -->
+            <div class="section">
+                <h2 class="section-title">Week 1: Authenticatie & Customer Accounts</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">B2B Customer Authenticatie</div>
+                        <div class="week-date">Dag 1-3</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Implementeer Supabase Auth voor B2B login
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak LoginForm.tsx werkend met echte Supabase authenticatie. Gebruikers moeten kunnen inloggen met email/wachtwoord. Implementeer ook "Wachtwoord vergeten" functionaliteit.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Customer registratie systeem
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak een registratie pagina waar nieuwe B2B klanten zich kunnen aanmelden. Valideer KVK nummer, bedrijfsnaam en email. Maak automatisch een customer record aan in de database.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Session management & Protected routes
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer session management zodat ingelogde gebruikers ingelogd blijven. Maak protected routes voor B2B pagina's (alleen ingelogde klanten kunnen bestellen).
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Customer profiel pagina
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak een /account pagina waar klanten hun gegevens kunnen bekijken en bewerken (naam, adres, bedrijfsgegevens, wachtwoord wijzigen).
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Week 2 -->
+            <div class="section">
+                <h2 class="section-title">Week 2: Winkelwagen & Pricing</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Persistent Winkelwagen & B2B Prijzen</div>
+                        <div class="week-date">Dag 4-7</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Database-gekoppelde winkelwagen
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Update CartContext om items op te slaan in Supabase cart_items tabel. Winkelwagen moet persistent zijn tussen sessies. Sync cart items bij login.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    B2B Pricing systeem
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer pricing per klant. Maak een customer_prices tabel of gebruik een pricing tier systeem. Elke klant ziet alleen zijn/haar B2B prijzen. Niet-ingelogde gebruikers zien geen prijzen.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Winkelwagen verbeteringen
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Voeg toe: voorraad check, minimum bestelhoeveelheden, bulk kortingen, subtotaal berekening met BTW, verzendkosten preview.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Winkelwagen notificaties
+                                    <span class="priority-badge priority-low">LAAG</span>
+                                </div>
+                                <div class="task-description">
+                                    Toon toast notificaties bij toevoegen/verwijderen van items. Voeg een "Laatst toegevoegd" indicator toe.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Week 3 -->
+            <div class="section">
+                <h2 class="section-title">Week 3: Checkout Proces</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Complete Checkout Flow</div>
+                        <div class="week-date">Dag 8-10</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Checkout pagina (/checkout)
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak een checkout pagina met: order overzicht, verzendadres formulier, factuuradres (optioneel anders), opmerkingen veld, totaal berekening (subtotaal + BTW + verzendkosten).
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Verzendkosten berekening
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer verzendkosten berekening op basis van: gewicht, afstand (postcode), order waarde, of vaste tarieven per regio. Toon verzendkosten in checkout.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Order creatie functionaliteit
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer createOrder functie die: order aanmaakt in database, order_items aanmaakt, winkelwagen leegt, order nummer genereert, email bevestiging verstuurt (basis).
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Order bevestiging pagina
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak een /order/[orderNummer] pagina waar klanten hun bestelling kunnen bekijken na plaatsing. Toon order details, status, en geschatte leverdatum.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Form validatie
+                                    <span class="priority-badge priority-low">LAAG</span>
+                                </div>
+                                <div class="task-description">
+                                    Voeg client-side en server-side validatie toe aan checkout formulier. Check voor lege velden, geldige email, geldige postcode, etc.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Week 4 -->
+            <div class="section">
+                <h2 class="section-title">Week 4: Order Management & Admin</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Admin Order Beheer</div>
+                        <div class="week-date">Dag 11-14</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Admin orders overzicht
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak /admin/orders werkend. Toon alle orders met: zoeken, filteren op status, sorteren op datum, paginatie. Laat admin orders bekijken en status wijzigen.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Order detail pagina (admin)
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak /admin/orders/[id] pagina met volledige order details: klant info, producten, prijzen, adressen, status history. Laat admin status updaten (pending → processing → shipped → delivered).
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Order status updates
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer status update functionaliteit. Wanneer admin status wijzigt, update database en stuur email notificatie naar klant (optioneel).
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Admin dashboard statistieken
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Update admin dashboard met echte statistieken: totaal orders, totaal klanten, verkoop deze maand, orders per status, recente orders.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Week 5 -->
+            <div class="section">
+                <h2 class="section-title">Week 5: Customer Account & Order Geschiedenis</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Klant Account Functionaliteit</div>
+                        <div class="week-date">Dag 15-17</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Order geschiedenis pagina
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak /account/orders pagina waar klanten al hun bestellingen kunnen zien. Toon order nummer, datum, status, totaal bedrag. Link naar order detail pagina.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Order detail pagina (klant)
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak /account/orders/[orderNummer] pagina waar klanten hun bestelling kunnen bekijken. Toon alle details, producten, prijzen, verzendstatus, tracking info (als beschikbaar).
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Account instellingen pagina
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak /account/settings pagina waar klanten kunnen: profielgegevens bewerken, wachtwoord wijzigen, standaard verzendadres instellen, email voorkeuren beheren.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Favorieten/Wishlist (optioneel)
+                                    <span class="priority-badge priority-low">LAAG</span>
+                                </div>
+                                <div class="task-description">
+                                    Voeg favorieten functionaliteit toe zodat klanten producten kunnen opslaan voor later. Maak favorites tabel in database.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Week 6 -->
+            <div class="section">
+                <h2 class="section-title">Week 6: Product Management & Voorraad</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Product & Voorraad Systeem</div>
+                        <div class="week-date">Dag 18-21</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Voorraad management
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer voorraad tracking. Update voorraad bij order plaatsing. Toon "Op voorraad" / "Beperkt voorraad" / "Niet op voorraad" status op product pagina's. Voorkom bestellingen van producten zonder voorraad.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Admin product pricing beheer
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak admin interface om prijzen per klant of pricing tier in te stellen. Laat admin bulk pricing updates doen. Importeer prijzen vanuit Excel/CSV.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Product categorieën beheer
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak categorieën systeem werkend. Laat admin categorieën aanmaken/bewerken. Filter producten op categorie. Toon categorie navigatie.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Bulk product import/export
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Verbeter import functionaliteit. Laat admin producten importeren vanuit Excel/CSV met validatie. Exporteer producten naar CSV voor bewerking.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Week 7 -->
+            <div class="section">
+                <h2 class="section-title">Week 7: Facturatie & Notificaties</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Facturen & Email Systeem</div>
+                        <div class="week-date">Dag 22-24</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Factuur generatie
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak een factuur generatie systeem. Genereer PDF facturen met: bedrijfslogo, factuurnummer, order details, BTW berekening, betalingsvoorwaarden. Laat admin facturen downloaden en naar klant sturen.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Email notificaties
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer email notificaties voor: order bevestiging, order status updates, verzendbevestiging, factuur verzending. Gebruik Supabase Edge Functions of externe service (SendGrid, Resend).
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Factuur overzicht (klant)
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Voeg facturen sectie toe aan klant account. Laat klanten hun facturen bekijken en downloaden. Toon betaalstatus.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Email templates
+                                    <span class="priority-badge priority-low">LAAG</span>
+                                </div>
+                                <div class="task-description">
+                                    Maak professionele email templates voor alle notificaties. Gebruik HTML emails met branding. Maak templates bewerkbaar vanuit admin panel.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Week 8 -->
+            <div class="section">
+                <h2 class="section-title">Week 8: Testing, Optimalisatie & Launch</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Finalisatie & Productie</div>
+                        <div class="week-date">Dag 25-28</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Uitgebreide testing
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Test alle functionaliteit: login/registratie, producten bekijken, winkelwagen, checkout, order plaatsing, admin functies, email notificaties. Test op verschillende browsers en devices.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Performance optimalisatie
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Optimaliseer laadtijden: image optimization, code splitting, caching, database queries optimaliseren, lazy loading. Test met Lighthouse.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Security audit
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Check security: SQL injection preventie, XSS preventie, CSRF protection, rate limiting, input validatie, secure cookies, HTTPS enforcement.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-medium">M</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Error handling & logging
+                                    <span class="priority-badge priority-medium">MEDIUM</span>
+                                </div>
+                                <div class="task-description">
+                                    Implementeer error boundaries, error logging (Sentry of vergelijkbaar), user-friendly error messages, 404/500 pagina's.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-high">H</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Productie deployment
+                                    <span class="priority-badge priority-high">HOOG</span>
+                                </div>
+                                <div class="task-description">
+                                    Deploy naar productie (Vercel/andere hosting). Setup environment variables, domain configuratie, SSL certificaat, monitoring, backups.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">
+                                    Documentatie
+                                    <span class="priority-badge priority-low">LAAG</span>
+                                </div>
+                                <div class="task-description">
+                                    Schrijf gebruikershandleiding voor klanten en admin handleiding. Documenteer API endpoints, database schema, deployment proces.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Toekomstige Verbeteringen -->
+            <div class="section">
+                <h2 class="section-title">Toekomstige Verbeteringen (Post-Launch)</h2>
+                
+                <div class="week">
+                    <div class="week-header">
+                        <div class="week-title">Nice-to-Have Features</div>
+                        <div class="week-date">Na Launch</div>
+                    </div>
+                    <ul class="tasks">
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">Payment integratie</div>
+                                <div class="task-description">
+                                    Integreer payment gateway (Mollie, Stripe) voor online betalingen. Momenteel is B2B vaak op factuur, maar online betaling kan handig zijn.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">Order tracking</div>
+                                <div class="task-description">
+                                    Integreer met verzendpartners (DHL, DPD) voor real-time tracking. Toon tracking nummer en status in klant account.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">Marketing tools</div>
+                                <div class="task-description">
+                                    Implementeer: nieuwsbrief systeem, product aanbevelingen, kortingscodes, bulk acties, seizoensaanbiedingen.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">Analytics & Reporting</div>
+                                <div class="task-description">
+                                    Voeg analytics toe: verkoop rapporten, populaire producten, klant gedrag, conversie tracking, admin dashboard met grafieken.
+                                </div>
+                            </div>
+                        </li>
+                        <li class="task">
+                            <div class="task-icon priority-low">L</div>
+                            <div class="task-content">
+                                <div class="task-title">Mobile app (optioneel)</div>
+                                <div class="task-description">
+                                    Overweeg een React Native mobile app voor klanten om onderweg te bestellen. Dit is een grote toevoeging, maar kan waardevol zijn.
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📅 Laatste update: Februari 2026</p>
+            <p style="margin-top: 10px; opacity: 0.8;">
+                Deze roadmap is een leidraad. Pas aan op basis van prioriteiten en beschikbare tijd.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# ============================================
+# SUPABASE CONFIGURATIE - VOORBEELD
+# ============================================
+# Kopieer deze inhoud naar een nieuw bestand genaamd: .env.local
+# Vul je eigen Supabase credentials in
+
+# Supabase Project URL
+# Stap 1: Ga naar https://supabase.com en maak een project aan
+# Stap 2: Ga naar je project dashboard
+# Stap 3: Klik op "Settings" (tandwiel icoon linksonder)
+# Stap 4: Klik op "API" in het menu
+# Stap 5: Kopieer de "Project URL" (bijvoorbeeld: https://abcdefghijklmnop.supabase.co)
+NEXT_PUBLIC_SUPABASE_URL=https://jouw-project-id.supabase.co
+
+# Supabase Anon/Public Key
+# Stap 1: In hetzelfde "API" scherm
+# Stap 2: Kopieer de "anon public" key (begint met eyJ...)
+# Dit is een lange string die er ongeveer zo uitziet:
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFiY2RlZmdoaWprbG1ub3AiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTY0NTk4ODgwMCwiZXhwIjoxOTYxNTY0ODAwfQ.voorbeeld-signature-hier
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.voorbeeld-key-vul-hier-je-eigen-key-in
+
+# ============================================
+# BELANGRIJK:
+# ============================================
+# 1. Kopieer deze inhoud naar een nieuw bestand genaamd: .env.local
+# 2. Vervang de voorbeeldwaarden met je echte Supabase credentials
+# 3. .env.local staat al in .gitignore, dus je credentials zijn veilig
+# 4. Herstart je development server na het aanmaken/bewerken van .env.local
+
+# ============================================
+# OPTIONEEL: Service Role Key
+# ============================================
+# Gebruik deze ALLEEN voor server-side code (API routes, etc.)
+# NOOIT gebruiken in client-side code!
+# SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+# ============================================
+# ANDERE CONFIGURATIE
+# ============================================
+NODE_ENV=development
+
+# Voor productie (optioneel)
+# NEXT_PUBLIC_APP_URL=https://jouw-website.nl

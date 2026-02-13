@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voeg Toe aan Je Bestelling - Straver</title>
+    <!--[if mso]>
+    <style type="text/css">
+        body, table, td {font-family: Arial, sans-serif !important;}
+    </style>
+    <![endif]-->
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
+    
+    <!-- Email Container -->
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                
+                <!-- Main Content Table -->
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="900" style="background-color: #ffffff; max-width: 900px; width: 100%;">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #3bb13b 0%, #2a9a2d 100%); padding: 40px 30px; text-align: center;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold; line-height: 1.2;">
+                                Voeg Toe aan Je Bestaande Bestelling
+                            </h1>
+                            <p style="margin: 15px 0 0 0; color: #ffffff; font-size: 18px; opacity: 0.95;">
+                                Zelfde levering • Zelfde deadline
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Order Info -->
+                    <tr>
+                        <td style="padding: 30px; background-color: #f8f9fa; border-bottom: 3px solid #3bb13b;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td>
+                                        <p style="margin: 0 0 8px 0; color: #333333; font-size: 15px;">
+                                            <strong>Ordernummer:</strong> <span style="color: #3bb13b; font-weight: bold;">{{order_nummer}}</span>
+                                        </p>
+                                        <p style="margin: 0 0 8px 0; color: #333333; font-size: 15px;">
+                                            <strong>Leverdatum:</strong> {{leverdatum}}
+                                        </p>
+                                        <p style="margin: 0; color: #666666; font-size: 14px;">
+                                            ⚠️ Je kunt producten toevoegen tot {{deadline_datum}}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Personal Message -->
+                    <tr>
+                        <td style="padding: 30px 30px 20px 30px;">
+                            <p style="margin: 0; color: #333333; font-size: 16px; line-height: 1.6;">
+                                Beste <strong>{{klantnaam}}</strong>,
+                            </p>
+                            <p style="margin: 15px 0 0 0; color: #333333; font-size: 16px; line-height: 1.6;">
+                                Je hebt nog een open bestelling staan. Voeg nu extra producten toe en alles wordt samen geleverd op dezelfde leverdatum!
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Featured Products -->
+                    <tr>
+                        <td style="padding: 0 30px 30px 30px;">
+                            <h2 style="margin: 0 0 25px 0; color: #1a1a1a; font-size: 22px; font-weight: bold;">
+                                Aanbevolen Producten
+                            </h2>
+                            
+                            <!-- Product Grid - 4 columns voor desktop -->
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <!-- Product 1 -->
+                                    <td width="24%" style="padding-right: 1.5%; vertical-align: top;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                                            <tr>
+                                                <td style="padding: 0;">
+                                                    <img src="https://straver.nl/Fruit cat3.png" alt="Fruit Bomen" width="100%" style="display: block; width: 100%; height: 180px; object-fit: cover;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 18px;">
+                                                    <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 17px; font-weight: bold; line-height: 1.3;">Fruit Bomen</h3>
+                                                    <p style="margin: 0 0 8px 0; color: #666666; font-size: 12px;">FRUIT-001</p>
+                                                    <p style="margin: 0 0 12px 0; color: #3bb13b; font-size: 22px; font-weight: bold;">€3,38</p>
+                                                    <a href="{{product1_add_url}}" style="display: block; padding: 10px; background-color: #3bb13b; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; text-align: center;">
+                                                        + Toevoegen
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    
+                                    <!-- Product 2 -->
+                                    <td width="24%" style="padding-left: 0.5%; padding-right: 1%; vertical-align: top;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                                            <tr>
+                                                <td style="padding: 0;">
+                                                    <img src="https://straver.nl/Hydrangea_cat.png" alt="Hydrangea" width="100%" style="display: block; width: 100%; height: 180px; object-fit: cover;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 18px;">
+                                                    <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 17px; font-weight: bold; line-height: 1.3;">Hydrangea</h3>
+                                                    <p style="margin: 0 0 8px 0; color: #666666; font-size: 12px;">HYD-002</p>
+                                                    <p style="margin: 0 0 12px 0; color: #3bb13b; font-size: 22px; font-weight: bold;">€4,16</p>
+                                                    <a href="{{product2_add_url}}" style="display: block; padding: 10px; background-color: #3bb13b; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; text-align: center;">
+                                                        + Toevoegen
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    
+                                    <!-- Product 3 -->
+                                    <td width="24%" style="padding-left: 1%; padding-right: 0.5%; vertical-align: top;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                                            <tr>
+                                                <td style="padding: 0;">
+                                                    <img src="https://straver.nl/Camellia_cat.png" alt="Camellia" width="100%" style="display: block; width: 100%; height: 180px; object-fit: cover;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 18px;">
+                                                    <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 17px; font-weight: bold; line-height: 1.3;">Camellia</h3>
+                                                    <p style="margin: 0 0 8px 0; color: #666666; font-size: 12px;">CAM-003</p>
+                                                    <p style="margin: 0 0 12px 0; color: #3bb13b; font-size: 22px; font-weight: bold;">€5,50</p>
+                                                    <a href="{{product3_add_url}}" style="display: block; padding: 10px; background-color: #3bb13b; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; text-align: center;">
+                                                        + Toevoegen
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    
+                                    <!-- Product 4 -->
+                                    <td width="24%" style="padding-left: 1.5%; vertical-align: top;">
+                                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff; border: 2px solid #e0e0e0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                                            <tr>
+                                                <td style="padding: 0;">
+                                                    <img src="https://straver.nl/Bamboo_cat.png" alt="Bamboo" width="100%" style="display: block; width: 100%; height: 180px; object-fit: cover;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 18px;">
+                                                    <h3 style="margin: 0 0 6px 0; color: #1a1a1a; font-size: 17px; font-weight: bold; line-height: 1.3;">Bamboo</h3>
+                                                    <p style="margin: 0 0 8px 0; color: #666666; font-size: 12px;">BAM-004</p>
+                                                    <p style="margin: 0 0 12px 0; color: #3bb13b; font-size: 22px; font-weight: bold;">€6,25</p>
+                                                    <a href="{{product4_add_url}}" style="display: block; padding: 10px; background-color: #3bb13b; color: #ffffff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 600; text-align: center;">
+                                                        + Toevoegen
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Dual CTA -->
+                    <tr>
+                        <td style="padding: 30px; background-color: #f8f9fa;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td width="48%" style="padding-right: 2%; vertical-align: top;">
+                                        <a href="{{add_to_order_url}}" style="display: block; padding: 18px 20px; background-color: #3bb13b; color: #ffffff; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; text-align: center;">
+                                            ➕ Voeg Toe aan Bestelling
+                                        </a>
+                                        <p style="margin: 10px 0 0 0; color: #666666; font-size: 13px; text-align: center;">
+                                            Zelfde leverdatum
+                                        </p>
+                                    </td>
+                                    <td width="48%" style="padding-left: 2%; vertical-align: top;">
+                                        <a href="{{new_order_url}}" style="display: block; padding: 18px 20px; background-color: #ffffff; color: #3bb13b; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; text-align: center; border: 2px solid #3bb13b;">
+                                            🛒 Nieuwe Bestelling
+                                        </a>
+                                        <p style="margin: 10px 0 0 0; color: #666666; font-size: 13px; text-align: center;">
+                                            Aparte levering
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- Benefits -->
+                    <tr>
+                        <td style="padding: 30px; background-color: #ffffff;">
+                            <h3 style="margin: 0 0 20px 0; color: #1a1a1a; font-size: 18px; font-weight: bold; text-align: center;">
+                                Waarom Toevoegen aan Bestaande Bestelling?
+                            </h3>
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding: 10px 0;">
+                                        <p style="margin: 0; color: #333333; font-size: 15px;">
+                                            <strong style="color: #3bb13b;">✓</strong> Alles wordt samen geleverd op {{leverdatum}}
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 0;">
+                                        <p style="margin: 0; color: #333333; font-size: 15px;">
+                                            <strong style="color: #3bb13b;">✓</strong> Geen extra verzendkosten
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px 0;">
+                                        <p style="margin: 0; color: #333333; font-size: 15px;">
+                                            <strong style="color: #3bb13b;">✓</strong> Eén factuur voor alles
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    
+                    <!-- View Order Button -->
+                    <tr>
+                        <td style="padding: 30px; text-align: center; background-color: #ffffff; border-top: 1px solid #e0e0e0;">
+                            <p style="margin: 0 0 15px 0; color: #666666; font-size: 14px;">
+                                Bekijk je huidige bestelling:
+                            </p>
+                            <a href="{{view_order_url}}" style="display: inline-block; padding: 12px 30px; background-color: #f8f9fa; color: #3bb13b; text-decoration: none; border-radius: 6px; font-size: 15px; font-weight: 600; border: 2px solid #3bb13b;">
+                                Bekijk Bestelling #{{order_nummer}}
+                            </a>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding: 30px; background-color: #2a2a2a; text-align: center;">
+                            <p style="margin: 0 0 10px 0; color: #ffffff; font-size: 16px; font-weight: bold;">
+                                Straver Pflanzen Export
+                            </p>
+                            <p style="margin: 0 0 20px 0; color: #999999; font-size: 12px;">
+                                Vragen over je bestelling? <a href="mailto:info@straver.nl" style="color: #3bb13b; text-decoration: none;">info@straver.nl</a>
+                            </p>
+                            <p style="margin: 0; color: #999999; font-size: 11px;">
+                                Deze email is verstuurd naar {{email}}<br>
+                                <a href="{{unsubscribe_url}}" style="color: #999999; text-decoration: underline;">Uitschrijven</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
