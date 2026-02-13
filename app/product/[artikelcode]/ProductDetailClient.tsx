@@ -390,8 +390,8 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                       const finalValue = maxQuantity ? Math.min(value, maxQuantity) : value;
                       setQuantity(Math.max(1, finalValue));
                     }}
-                    onFocus={(e) => e.target.select()}
-                    onClick={(e) => e.target.select()}
+                    onFocus={(e) => (e.target as HTMLInputElement).select()}
+                    onClick={(e) => (e.target as HTMLInputElement).select()}
                     className="product-detail-quantity-input flex-1 text-center font-semibold text-lg focus:outline-none border-none bg-transparent p-0"
                   />
                   {product.verpakkingsinhoud && (
